@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Tasks</title>
+    <link rel="stylesheet" href={% static "Data/tasks.css"%}>
+</head>
+<body>
+    <div class="container">
+<section class="add-task">
+    <h2>Add New Task</h2>
+    <form method='POST' action='' id="task-form">
+        {% csrf_token %} 
+        <label for="task-title">Title:</label>
+        {{form.title}}
+        
+        <label for="task-description">Description:</label>
+        {{form.description}}
+        
+        
+        
+        <button type="submit" class="add-btn">Add Task</button>
+    </form>
+</section>
+</div>
+</body>
+</html>

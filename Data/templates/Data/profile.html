@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Tasks</title>
+    <link rel="stylesheet" href={% static "Data/tasks.css"%}>
+    <link rel="stylesheet" href={% static "Data/nav.css"%}>
+</head>
+{% if request.user == user or request.user == silver%}
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href={% url "index" %}>Logo</a>
+        </div>
+        <ul class="nav-links">
+            <li><a href={% url "index" %}>Home</a></li>
+            <li><a href={% url "logout" %}>Logout</a></li>
+            {% if request.user == silver %}
+            <li><a href={% url "home" %}>index</a></li>
+            {% endif %}
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            &#9776;
+        </div>
+    </nav>
+    <div class="container">
+        <header>
+            <h1>Tasks for ( {{user.username}} )</h1>
+        </header>
+        <section class="tasks-list">
+            <h2>Task List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+               {% for task in tasks %}
+                <tbody>
+                    <tr>
+                        <td>{{task.title}}</td>
+                        <td>{{task.description}}</td>
+                        <td>
+                            <a href={% url "edit_task" task.id %}><button class="edit-btn">Edit</button></a>
+                            <a href={% url "delete_item" task.id %}><button class="delete-btn">Delete</button></a>
+                        </td>
+                    </tr>
+                    <!-- Add more tasks here -->
+                </tbody>
+
+                {%endfor%}
+            </table>
+        </section>
+        <section class="add-task">
+            <h2>Add New Task</h2>
+            <form method='POST' action='' id="task-form">
+                {% csrf_token %} 
+                <label for="task-title">Title:</label>
+                <input type="text" id="task-title" name="title" required>
+                
+                <label for="task-description">Description:</label>
+                <textarea id="task-description" name="description"></textarea>
+                
+                
+                
+                <button type="submit" class="add-btn">Add Task</button>
+            </form>
+        </section>
+    </div>
+</body>
+</html>
+{% else %}
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<title>ERROR</title>
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href={% static "css/error.css"%} />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+</head>
+
+<body>
+
+	<div id="notfound">
+		<div class="notfound">
+			<div class="notfound-404">
+				<h1>Oops!</h1>
+				<h2> You can't access this page</h2>
+			</div>
+			<a href={% url "login"  %}>Go Back</a>
+		</div>
+	</div>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+{% endif %}

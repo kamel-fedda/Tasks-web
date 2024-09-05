@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <link rel="stylesheet" href={% static "Data/styles.css"%}>
+</head>
+{% if request.user == silver %}
+<body>
+    
+    <div class="container">
+        <header>
+            <h1>User List</h1>
+        </header>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            {% for user in users %}
+            <tbody>
+                <tr>
+                    <td>{{user.id}}</td>
+                    <td><a href={% url "profile" user.id%}>{{user.username}}</a></td>
+                    <td><a href={% url "profile" user.id%}>{{user.email}}</a></td>
+                </tr>
+               
+                <!-- Add more user rows here -->
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
+{%endif%}
