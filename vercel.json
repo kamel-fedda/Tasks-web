@@ -8,7 +8,7 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "mupage/wsgi.py"
+            "dest": "mypage/wsgi.py"
         }
     ]
 }
