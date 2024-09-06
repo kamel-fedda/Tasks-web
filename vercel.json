@@ -6,6 +6,12 @@
         "config": {
         "buildCommand": "python manage.py collectstatic --noinput"
         }
-    }]
-   
+    }],
+    "routes": [
+        {
+            "src": "/static/(.*)",
+            "dest": "/staticfiles/$1"
+            
+        }
+    ]
 }
